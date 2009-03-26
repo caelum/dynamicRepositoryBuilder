@@ -5,7 +5,10 @@ import java.io.Serializable;
 import org.hibernate.Session;
 import org.repositorybuilder.operation.RepositoryOperation;
 
-
+/**
+ * @author leonardobessa
+ * 
+ */
 public class UniqueResultExecuter implements ResultExecuter {
 
     private final RepositoryOperation operation;

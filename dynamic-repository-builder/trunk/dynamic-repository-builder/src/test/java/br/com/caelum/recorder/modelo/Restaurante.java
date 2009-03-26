@@ -1,5 +1,9 @@
 package br.com.caelum.recorder.modelo;
 
+/**
+ * @author leonardobessa
+ * 
+ */
 public class Restaurante {
 
     private String nome;

@@ -4,6 +4,10 @@ import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hibernate.criterion.SimpleExpression;
 
+/**
+ * @author leonardobessa
+ * 
+ */
 public class SimpleExpressionMatcher extends BaseMatcher<SimpleExpression> {
 
     private final SimpleExpression object;

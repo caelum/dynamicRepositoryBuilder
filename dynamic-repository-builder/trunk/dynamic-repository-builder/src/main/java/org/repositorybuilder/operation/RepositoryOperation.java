@@ -4,6 +4,10 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+/**
+ * @author leonardobessa
+ * 
+ */
 public class RepositoryOperation {
 
     private final Class<?> resultType;

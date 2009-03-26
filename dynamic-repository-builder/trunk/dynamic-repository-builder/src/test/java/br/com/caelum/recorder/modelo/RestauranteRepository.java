@@ -3,6 +3,10 @@ package br.com.caelum.recorder.modelo;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * @author leonardobessa
+ * 
+ */
 public interface RestauranteRepository {
 
     public List<Restaurante> findAllByNome(String nome);

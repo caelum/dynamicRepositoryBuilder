@@ -9,7 +9,10 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.repositorybuilder.operation.RepositoryOperation;
 
-
+/**
+ * @author leonardobessa
+ * 
+ */
 public class ListResultExecuter implements ResultExecuter {
 
     private final RepositoryOperation operation;

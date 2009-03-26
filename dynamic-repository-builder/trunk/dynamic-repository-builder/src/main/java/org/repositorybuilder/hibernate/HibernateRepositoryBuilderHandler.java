@@ -9,7 +9,10 @@ import org.repositorybuilder.executer.ResultExecuter;
 import org.repositorybuilder.executer.UniqueResultExecuter;
 import org.repositorybuilder.operation.RepositoryOperation;
 
-
+/**
+ * @author leonardobessa
+ * 
+ */
 public class HibernateRepositoryBuilderHandler implements InvocationHandler {
 
     private Session session;

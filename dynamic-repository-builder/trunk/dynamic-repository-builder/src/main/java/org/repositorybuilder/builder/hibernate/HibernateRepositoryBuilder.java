@@ -7,7 +7,10 @@ import org.hibernate.Session;
 import org.repositorybuilder.builder.RepositoryBuilder;
 import org.repositorybuilder.hibernate.HibernateRepositoryBuilderHandler;
 
-
+/**
+ * @author leonardobessa
+ * 
+ */
 public class HibernateRepositoryBuilder implements RepositoryBuilder {
 
     private Session session;
