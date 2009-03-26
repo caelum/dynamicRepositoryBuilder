@@ -17,7 +17,7 @@ import br.com.caelum.recorder.modelo.Restaurante;
 import br.com.caelum.recorder.modelo.RestauranteRepository;
 import br.com.caelum.recorder.test.SimpleExpressionMatcher;
 
-public class RecorderTest {
+public class HibernateRepositoryBuilderTest {
 
     @Test
     public void listEntityWithOneAttribute() {
