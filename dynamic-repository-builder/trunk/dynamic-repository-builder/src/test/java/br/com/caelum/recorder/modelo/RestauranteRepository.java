@@ -9,6 +9,7 @@ import java.util.List;
  */
 public interface RestauranteRepository {
 
+    public List<Restaurante> findAll();
     public List<Restaurante> findAllByNome(String nome);
 
     public List<Restaurante> findAllByNomeAndEspecialidade(String nome, String especialidade);

@@ -1,12 +1,10 @@
 package org.repositorybuilder.executer;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
+import org.repositorybuilder.builder.hibernate.CriteriaBuilder;
 import org.repositorybuilder.operation.RepositoryOperation;
 
 /**
@@ -24,14 +22,7 @@ public class ListResultExecuter implements ResultExecuter {
     }
 
     public Object execute() {
-        String replacedName = this.operation.getName().replaceFirst("findAllBy", "");
-
-        String[] strings = replacedName.split("And");
-        Map<String, Object> map = new HashMap<String, Object>();
-        for (int i = 0; i < strings.length; i++) {
-            String attribute = strings[i].substring(0, 1).toLowerCase() + strings[i].substring(1);
-            map.put(attribute, this.operation.getArguments()[i]);
-        }
+        Map<String, Object> map = new ConditionsMapBuilder().getMap(operation);
         try {
             return findAllBy(map, operation.getResultType());
         } catch (Exception e) {
@@ -40,11 +31,7 @@ public class ListResultExecuter implements ResultExecuter {
     }
 
     private Object findAllBy(Map<String, Object> map, Class<?> type) {
-        Criteria criteria = session.createCriteria(type);
-        Set<String> attributes = map.keySet();
-        for (String propertyName : attributes) {
-            criteria.add(Restrictions.eq(propertyName, map.get(propertyName)));
-        }
+        Criteria criteria = new CriteriaBuilder(session).getCriteria(map, type);
         return criteria.list();
     }
 

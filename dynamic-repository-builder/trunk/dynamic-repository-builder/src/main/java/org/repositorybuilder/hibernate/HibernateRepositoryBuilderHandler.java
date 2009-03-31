@@ -28,7 +28,7 @@ public class HibernateRepositoryBuilderHandler implements InvocationHandler {
     }
 
     private ResultExecuter getResultAnalizer(RepositoryOperation operation) {
-        if (operation.getName().startsWith("findAllBy")) {
+        if (operation.getName().startsWith("findAll")) {
             return new ListResultExecuter(operation, session);
         } else if (operation.getName().startsWith("find")) {
             return new UniqueResultExecuter(operation, session);

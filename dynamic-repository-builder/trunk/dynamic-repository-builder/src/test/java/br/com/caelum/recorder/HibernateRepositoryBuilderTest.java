@@ -24,6 +24,27 @@ import br.com.caelum.recorder.test.SimpleExpressionMatcher;
 public class HibernateRepositoryBuilderTest {
 
     @Test
+    public void listAllEntities() {
+        Mockery mockery = new Mockery();
+        final Session session = mockery.mock(Session.class);
+        final List<Restaurante> expectedResult = new ArrayList<Restaurante>();
+        final Criteria criteria = mockery.mock(Criteria.class);
+        mockery.checking(new Expectations() {
+            {
+                one(session).createCriteria(with(equal(Restaurante.class)));
+                will(returnValue(criteria));
+                one(criteria).list();
+                will(returnValue(expectedResult));
+            }
+        });
+        HibernateRepositoryBuilder recorder = HibernateRepositoryBuilder.newInstance(session);
+        RestauranteRepository repository = recorder.getRepository(RestauranteRepository.class);
+        List<Restaurante> list = repository.findAll();
+        Assert.assertEquals(expectedResult, list);
+        mockery.assertIsSatisfied();
+    }
+
+    @Test
     public void listEntityWithOneAttribute() {
         Mockery mockery = new Mockery();
         final Session session = mockery.mock(Session.class);
