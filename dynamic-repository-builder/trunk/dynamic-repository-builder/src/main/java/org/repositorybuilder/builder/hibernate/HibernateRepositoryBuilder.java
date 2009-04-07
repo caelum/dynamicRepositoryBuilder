@@ -15,20 +15,20 @@ public class HibernateRepositoryBuilder implements RepositoryBuilder {
 
     private Session session;
 
-    private HibernateRepositoryBuilder(Session session) {
+    public HibernateRepositoryBuilder(Session session) {
         this.session = session;
     }
-
-    public static HibernateRepositoryBuilder newInstance(Session session) {
-        return new HibernateRepositoryBuilder(session);
-    }
-
 
     @SuppressWarnings("unchecked")
     public <T> T getRepository(Class<T> clazz) {
         InvocationHandler handler = new HibernateRepositoryBuilderHandler(session);
         return (T) Proxy.newProxyInstance(this.getClass().getClassLoader(),
                 new Class[] { clazz }, handler);
+    }
+
+    public <T> T getConditions(Class<T> clazz) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

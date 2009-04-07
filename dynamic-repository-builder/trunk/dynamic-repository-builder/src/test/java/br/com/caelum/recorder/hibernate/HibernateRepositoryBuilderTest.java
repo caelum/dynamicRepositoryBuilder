@@ -13,8 +13,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.repositorybuilder.builder.hibernate.HibernateRepositoryBuilder;
 
-import br.com.caelum.recorder.modelo.Restaurante;
-import br.com.caelum.recorder.modelo.RestauranteRepository;
+import br.com.caelum.recorder.modelo.Restaurant;
+import br.com.caelum.recorder.modelo.RestaurantRepository;
 
 /**
  * @author leonardobessa
@@ -26,19 +26,19 @@ public class HibernateRepositoryBuilderTest {
     public void listAllEntities() {
         Mockery mockery = new Mockery();
         final Session session = mockery.mock(Session.class);
-        final List<Restaurante> expectedResult = new ArrayList<Restaurante>();
+        final List<Restaurant> expectedResult = new ArrayList<Restaurant>();
         final Criteria criteria = mockery.mock(Criteria.class);
         mockery.checking(new Expectations() {
             {
-                one(session).createCriteria(with(equal(Restaurante.class)));
+                one(session).createCriteria(with(equal(Restaurant.class)));
                 will(returnValue(criteria));
                 one(criteria).list();
                 will(returnValue(expectedResult));
             }
         });
-        HibernateRepositoryBuilder recorder = HibernateRepositoryBuilder.newInstance(session);
-        RestauranteRepository repository = recorder.getRepository(RestauranteRepository.class);
-        List<Restaurante> list = repository.findAll();
+        HibernateRepositoryBuilder recorder = new HibernateRepositoryBuilder(session);
+        RestaurantRepository repository = recorder.getRepository(RestaurantRepository.class);
+        List<Restaurant> list = repository.findAll();
         Assert.assertEquals(expectedResult, list);
         mockery.assertIsSatisfied();
     }
@@ -47,21 +47,21 @@ public class HibernateRepositoryBuilderTest {
     public void listEntityWithOneAttribute() {
         Mockery mockery = new Mockery();
         final Session session = mockery.mock(Session.class);
-        final List<Restaurante> expectedResult = new ArrayList<Restaurante>();
+        final List<Restaurant> expectedResult = new ArrayList<Restaurant>();
         final Criteria criteria = mockery.mock(Criteria.class);
         mockery.checking(new Expectations() {
             {
-                one(session).createCriteria(with(equal(Restaurante.class)));
+                one(session).createCriteria(with(equal(Restaurant.class)));
                 will(returnValue(criteria));
-                one(criteria).add(with(new SimpleExpressionMatcher(Restrictions.eq("nome", "Fasano"))));
+                one(criteria).add(with(new SimpleExpressionMatcher(Restrictions.eq("name", "Fasano"))));
                 will(returnValue(criteria));
                 one(criteria).list();
                 will(returnValue(expectedResult));
             }
         });
-        HibernateRepositoryBuilder recorder = HibernateRepositoryBuilder.newInstance(session);
-        RestauranteRepository repository = recorder.getRepository(RestauranteRepository.class);
-        List<Restaurante> list = repository.findAllByNome("Fasano");
+        HibernateRepositoryBuilder recorder = new HibernateRepositoryBuilder(session);
+        RestaurantRepository repository = recorder.getRepository(RestaurantRepository.class);
+        List<Restaurant> list = repository.findAllByName("Fasano");
         Assert.assertEquals(expectedResult, list);
         mockery.assertIsSatisfied();
     }
@@ -70,23 +70,23 @@ public class HibernateRepositoryBuilderTest {
     public void shouldListEntityByTwoAttributes() {
         Mockery mockery = new Mockery();
         final Session session = mockery.mock(Session.class);
-        final List<Restaurante> expectedResult = new ArrayList<Restaurante>();
+        final List<Restaurant> expectedResult = new ArrayList<Restaurant>();
         final Criteria criteria = mockery.mock(Criteria.class);
         mockery.checking(new Expectations() {
             {
-                one(session).createCriteria(with(equal(Restaurante.class)));
+                one(session).createCriteria(with(equal(Restaurant.class)));
                 will(returnValue(criteria));
-                one(criteria).add(with(new SimpleExpressionMatcher(Restrictions.eq("nome", "Fasano"))));
+                one(criteria).add(with(new SimpleExpressionMatcher(Restrictions.eq("name", "Fasano"))));
                 will(returnValue(criteria));
-                one(criteria).add(with(new SimpleExpressionMatcher(Restrictions.eq("especialidade", "Italiana"))));
+                one(criteria).add(with(new SimpleExpressionMatcher(Restrictions.eq("speciality", "Italiana"))));
                 will(returnValue(criteria));
                 one(criteria).list();
                 will(returnValue(expectedResult));
             }
         });
-        HibernateRepositoryBuilder recorder = HibernateRepositoryBuilder.newInstance(session);
-        RestauranteRepository repository = recorder.getRepository(RestauranteRepository.class);
-        List<Restaurante> list = repository.findAllByNomeAndEspecialidade("Fasano", "Italiana");
+        HibernateRepositoryBuilder recorder = new HibernateRepositoryBuilder(session);
+        RestaurantRepository repository = recorder.getRepository(RestaurantRepository.class);
+        List<Restaurant> list = repository.findAllByNameAndSpeciality("Fasano", "Italiana");
         Assert.assertEquals(expectedResult, list);
         mockery.assertIsSatisfied();
     }
@@ -95,40 +95,40 @@ public class HibernateRepositoryBuilderTest {
     public void shouldFindEntityById() {
         Mockery mockery = new Mockery();
         final Session session = mockery.mock(Session.class);
-        final Restaurante expectedResult = new Restaurante();
+        final Restaurant expectedResult = new Restaurant();
         final Serializable id = mockery.mock(Serializable.class);
         mockery.checking(new Expectations() {
             {
-                one(session).load(with(equal(Restaurante.class)), with(equal(id)));
+                one(session).load(with(equal(Restaurant.class)), with(equal(id)));
                 will(returnValue(expectedResult));
             }
         });
-        HibernateRepositoryBuilder recorder = HibernateRepositoryBuilder.newInstance(session);
-        RestauranteRepository repository = recorder.getRepository(RestauranteRepository.class);
-        Restaurante restaurante = repository.find(id);
+        HibernateRepositoryBuilder recorder = new HibernateRepositoryBuilder(session);
+        RestaurantRepository repository = recorder.getRepository(RestaurantRepository.class);
+        Restaurant restaurante = repository.find(id);
         Assert.assertEquals(expectedResult, restaurante);
         mockery.assertIsSatisfied();
     }
 
     @Test
-    public void shouldFindEntityByNome() {
+    public void shouldFindEntityByName() {
         Mockery mockery = new Mockery();
         final Session session = mockery.mock(Session.class);
-        final Restaurante expectedResult = new Restaurante();
+        final Restaurant expectedResult = new Restaurant();
         final Criteria criteria = mockery.mock(Criteria.class);
         mockery.checking(new Expectations() {
             {
-                one(session).createCriteria(with(equal(Restaurante.class)));
+                one(session).createCriteria(with(equal(Restaurant.class)));
                 will(returnValue(criteria));
-                one(criteria).add(with(new SimpleExpressionMatcher(Restrictions.eq("nome", "Nakombi"))));
+                one(criteria).add(with(new SimpleExpressionMatcher(Restrictions.eq("name", "Nakombi"))));
                 will(returnValue(criteria));
                 one(criteria).uniqueResult();
                 will(returnValue(expectedResult));
             }
         });
-        HibernateRepositoryBuilder recorder = HibernateRepositoryBuilder.newInstance(session);
-        RestauranteRepository repository = recorder.getRepository(RestauranteRepository.class);
-        Restaurante restaurante = repository.findByNome("Nakombi");
+        HibernateRepositoryBuilder recorder = new HibernateRepositoryBuilder(session);
+        RestaurantRepository repository = recorder.getRepository(RestaurantRepository.class);
+        Restaurant restaurante = repository.findByName("Nakombi");
         Assert.assertEquals(expectedResult, restaurante);
         mockery.assertIsSatisfied();
     }

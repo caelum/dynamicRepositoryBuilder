@@ -23,17 +23,20 @@ public class HibernateRepositoryBuilderHandler implements InvocationHandler {
 
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         RepositoryOperation operation = new RepositoryOperation(method, args);
-        ResultExecuter analizer = this.getResultAnalizer(operation);
-        return analizer.execute();
+        Object result = this.executeCriteriaFor(operation);
+        return result;
     }
 
-    private ResultExecuter getResultAnalizer(RepositoryOperation operation) {
-        if (operation.getName().startsWith("findAll")) {
-            return new ListResultExecuter(operation, session);
-        } else if (operation.getName().startsWith("find")) {
-            return new UniqueResultExecuter(operation, session);
+    private Object executeCriteriaFor(RepositoryOperation operation) {
+        ResultExecuter executer;
+        if (operation.expectsList()) {
+            executer = new ListResultExecuter(operation, session);
+        } else if (operation.expectsUniqueResult()) {
+            executer = new UniqueResultExecuter(operation, session);
+        } else {
+            throw new IllegalArgumentException("Invalid mehtod name:" + operation.getName());
         }
-        throw new IllegalArgumentException("Invalid mehtod name:" + operation.getName());
+        return executer.execute();
     }
 
 }

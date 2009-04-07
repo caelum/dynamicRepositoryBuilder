@@ -1,7 +1,6 @@
 package org.repositorybuilder.executer;
 
 import java.io.Serializable;
-import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -28,8 +27,7 @@ public class UniqueResultExecuter implements ResultExecuter {
         if (operation.getName().equals("find")) {
             result = session.load(resultType, (Serializable) operation.getArguments()[0]);
         } else {
-            Map<String, Object> map = new ConditionsMapBuilder().getMap(operation);
-            Criteria criteria = new CriteriaBuilder(session).getCriteria(map, resultType);
+            Criteria criteria = new CriteriaBuilder(session).getCriteria(operation);
             result = criteria.uniqueResult();
         }
         return result;

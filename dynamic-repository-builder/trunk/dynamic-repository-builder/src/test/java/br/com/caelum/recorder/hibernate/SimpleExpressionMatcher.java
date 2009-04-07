@@ -2,6 +2,7 @@ package br.com.caelum.recorder.hibernate;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.SimpleExpression;
 
 /**
@@ -10,9 +11,9 @@ import org.hibernate.criterion.SimpleExpression;
  */
 public class SimpleExpressionMatcher extends BaseMatcher<SimpleExpression> {
 
-    private final SimpleExpression object;
+    private final Criterion object;
 
-    public SimpleExpressionMatcher(SimpleExpression equalArg) {
+    public SimpleExpressionMatcher(Criterion equalArg) {
         object = equalArg;
     }
 
