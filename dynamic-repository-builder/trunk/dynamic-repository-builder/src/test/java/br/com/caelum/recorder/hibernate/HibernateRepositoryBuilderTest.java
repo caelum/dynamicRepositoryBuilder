@@ -1,4 +1,4 @@
-package br.com.caelum.recorder;
+package br.com.caelum.recorder.hibernate;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,7 +15,6 @@ import org.repositorybuilder.builder.hibernate.HibernateRepositoryBuilder;
 
 import br.com.caelum.recorder.modelo.Restaurante;
 import br.com.caelum.recorder.modelo.RestauranteRepository;
-import br.com.caelum.recorder.test.SimpleExpressionMatcher;
 
 /**
  * @author leonardobessa

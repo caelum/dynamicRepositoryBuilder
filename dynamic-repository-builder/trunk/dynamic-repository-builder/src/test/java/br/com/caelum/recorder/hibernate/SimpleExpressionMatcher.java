@@ -1,4 +1,4 @@
-package br.com.caelum.recorder.test;
+package br.com.caelum.recorder.hibernate;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
