@@ -19,5 +19,5 @@ public interface RestaurantRepository {
 
     public Restaurant findByName(String name);
 
-    public List<Restaurant> findAll(RestaurantConditions conditions);
+    public List<Restaurant> findAll(IRestaurantConditions conditions);
 }

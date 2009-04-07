@@ -15,8 +15,9 @@ import org.junit.Test;
 import org.repositorybuilder.builder.hibernate.HibernateRepositoryBuilder;
 
 import br.com.caelum.recorder.modelo.City;
+import br.com.caelum.recorder.modelo.IRestaurantConditions;
 import br.com.caelum.recorder.modelo.Restaurant;
-import br.com.caelum.recorder.modelo.RestaurantConditions;
+import br.com.caelum.recorder.modelo.RestaurantCondition;
 import br.com.caelum.recorder.modelo.RestaurantRepository;
 
 /**
@@ -47,7 +48,9 @@ public class HibernateRestrictionInTest {
         HibernateRepositoryBuilder recorder = new HibernateRepositoryBuilder(session);
         RestaurantRepository repository = recorder.getRepository(RestaurantRepository.class);
 
-        RestaurantConditions where = recorder.getConditions(RestaurantConditions.class);
+        // IRestaurantConditions where =
+        // recorder.getConditions(IRestaurantConditions.class);
+        IRestaurantConditions where = new RestaurantCondition();
         List<Restaurant> list = repository.findAll(where.cityIsIn(cities));
 
         Assert.assertEquals(expectedResult, list);

@@ -69,4 +69,8 @@ public class RepositoryOperation {
         return map;
     }
 
+    public boolean usesConditions() {
+        return args != null && !usesBy();
+    }
+
 }
